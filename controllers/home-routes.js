@@ -16,9 +16,9 @@ router.get('/', async (req, res) => {
     const galleries = dbGalleryData.map((gallery) =>
       gallery.get({ plain: true })
     );
-
     res.render('homepage', {
       galleries,
+      loggedIn: req.session.loggedIn,
     });
   } catch (err) {
     console.log(err);
@@ -46,7 +46,7 @@ router.get('/gallery/:id', async (req, res) => {
     });
 
     const gallery = dbGalleryData.get({ plain: true });
-    res.render('gallery', { gallery });
+    res.render('gallery', { gallery, loggedIn: req.session.loggedIn });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -59,12 +59,20 @@ router.get('/painting/:id', async (req, res) => {
     const dbPaintingData = await Painting.findByPk(req.params.id);
 
     const painting = dbPaintingData.get({ plain: true });
-
-    res.render('painting', { painting });
+    res.render('painting', { painting, loggedIn: req.session.loggedIn });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
+});
+
+// Login route
+router.get('/login', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/');
+    return;
+  }
+  res.render('login');
 });
 
 module.exports = router;
