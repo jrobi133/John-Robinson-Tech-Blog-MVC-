@@ -25,9 +25,10 @@ const newFormHandler = async (event) => {
 };
 
 const delButtonHandler = async (event) => {
+  console.log("clicked delete");
   if (event.target.hasAttribute("data-id")) {
     const id = event.target.getAttribute("data-id");
-
+    console.log("Other clicked delete");
     const response = await fetch(`/api/projects/${id}`, {
       method: "DELETE",
     });
@@ -39,11 +40,19 @@ const delButtonHandler = async (event) => {
     }
   }
 };
-
-document
-  .querySelector(".new-project-form")
-  .addEventListener("submit", newFormHandler);
+const newProjectForm = document.querySelector(".new-project-form");
+if (newProjectForm) {
+  newProjectForm.addEventListener("submit", newFormHandler);
+}
+// .addEventListener("submit", newFormHandler);
+// document
+//   .querySelector(".new-project-form")
+//   .addEventListener("submit", newFormHandler);
 
 document
   .querySelector(".project-list")
+  .addEventListener("click", delButtonHandler);
+
+document
+  .querySelector(".asdf-list")
   .addEventListener("click", delButtonHandler);
