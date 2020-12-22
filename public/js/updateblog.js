@@ -17,7 +17,7 @@ const newFormHandler = async (event) => {
     });
 
     if (response.ok) {
-      document.location.replace("/profile");
+      document.location.replace("/edit");
     } else {
       alert("Failed to create project");
     }
@@ -34,30 +34,12 @@ const delButtonHandler = async (event) => {
     });
 
     if (response.ok) {
-      document.location.replace("/profile");
+      document.location.replace("/edit");
     } else {
       alert("Failed to delete project");
     }
   }
 };
-
-const editButtonHandler = async (event) => {
-  console.log("clicked edit");
-  if (event.target.hasAttribute("data-id")) {
-    const id = event.target.getAttribute("data-id");
-    console.log("Other clicked delete");
-    const response = await fetch(`/api/projects/${id}`, {
-      method: "PUT",
-    });
-
-    if (response.ok) {
-      document.location.replace("/profile");
-    } else {
-      alert("Failed to edit project");
-    }
-  }
-};
-
 const newProjectForm = document.querySelector(".new-project-form");
 if (newProjectForm) {
   newProjectForm.addEventListener("submit", newFormHandler);
@@ -72,5 +54,5 @@ document
   .addEventListener("click", delButtonHandler);
 
 document
-  .querySelector(".edit-list")
-  .addEventListener("click", editButtonHandler);
+  .querySelector(".asdf-list")
+  .addEventListener("click", delButtonHandler);
